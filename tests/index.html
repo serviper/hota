@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat</title>
+    <hota-core></hota-core>
+  </head>
+  <body>
+    <h1>WebSocket Chat</h1>
+    <div id="__hota"></div>
+    <script>
+      function hotaHandle(element, uuid) {
+        window.dispatchEvent(
+          new CustomEvent("hota_handle", {
+            detail: {
+              element,
+              uuid,
+            },
+          })
+        );
+      }
+    </script>
+    <script type="module">
+      var dataStack = {};
+      var ws = new WebSocket("ws://localhost:8000/ws");
+      var domParser = new DOMParser();
+
+      ws.addEventListener("message", (event) => {
+        try {
+          handlePayload(JSON.parse(event.data));
+        } catch (e) {
+          let doc = domParser.parseFromString(event.data, "text/html");
+
+          let payload = doc.querySelector("hota-payload");
+          let nack = payload.querySelector("hota-ack").innerText;
+          dataStack[nack](payload);
+        }
+      });
+
+      function handlePayload(data) {
+        switch (data.type) {
+          case 1:
+            dataStack[data.nack] = (body) => {
+              let element = document.getElementById(data.for);
+              element.appendChild(body.querySelector("hota-frame"));
+            };
+            break;
+          case 2:
+            dataStack[data.nack] = (body) => {
+              let element = document.getElementById(data.for);
+              element.replaceWith(body.querySelector("hota-frame"));
+            };
+            break;
+        }
+      }
+
+      window.addEventListener("hota_handle", ({ detail }) => {
+        let { element, uuid } = detail;
+        ws.send(
+          JSON.stringify({
+            type: 4,
+            frame: element.closest("hota-frame").id,
+            uuid,
+          })
+        );
+      });
+    </script>
+  </body>
+</html>
