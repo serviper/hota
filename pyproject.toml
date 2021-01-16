@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "hota"
+name = "hotair"
 version = "0.1.0"
 description = "HTML Over The Air. Transporting HTML through WebSocket. Inspired by Hotwire."
 authors = ["NCPlayz <chowdhurynadir0@outlook.com>"]
 license = "Apache Software License"
 readme = "README.md"
-homepage = "https://github.com/serviper/hota"
-repository = "https://github.com/serviper/hota"
+homepage = "https://github.com/serviper/hotair"
+repository = "https://github.com/serviper/hotair"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Framework :: AsyncIO",

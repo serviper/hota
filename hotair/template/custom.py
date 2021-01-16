@@ -1,5 +1,5 @@
-from hota.template.element import Element
-from hota.template.node import Node
+from hotair.template.element import Element
+from hotair.template.node import Node
 
 
 class CustomElement(Element):

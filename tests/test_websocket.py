@@ -1,8 +1,8 @@
 import asyncio
 
-from hota.template.custom import CustomElement
-from hota.html import b, h1, i, span
-from hota.websocket import HTMLOverTheAirEndpoint, HTMLOverTheAirWebSocket
+from hotair.template.custom import CustomElement
+from hotair.html import b, h1, i, span
+from hotair.websocket import HTMLOverTheAirEndpoint, HTMLOverTheAirWebSocket
 from starlette.applications import Starlette
 from starlette.responses import FileResponse
 from starlette.routing import Route, WebSocketRoute

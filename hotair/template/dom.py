@@ -4,7 +4,7 @@ from starlette.websockets import WebSocket
 
 from .custom import CustomElement
 from .element import Element
-from .internal import hota_ack, hota_frame, hota_payload
+from .internal import hotair_ack, hotair_frame, hotair_payload
 from .utils import make_nonce
 
 
@@ -27,13 +27,13 @@ class DOM:
             node = await element_instance.render()
             self.ws.handlers.update(element_instance.uuid_to_handler)
             self.ws.handlers.update(node.uuid_to_handler)
-            frame = hota_frame(id=str(uuid4()))[node]
+            frame = hotair_frame(id=str(uuid4()))[node]
             self.ws.frame_to_element[frame.id] = node
         else:
             node = await element.render()
             self.ws.handlers.update(element.uuid_to_handler)
             self.ws.handlers.update(node.uuid_to_handler)
-            frame = hota_frame(id=id)[node]
+            frame = hotair_frame(id=id)[node]
         self._accumulate_handlers(node)
 
         return (
@@ -42,10 +42,10 @@ class DOM:
                 "for": id,
                 "nack": nonce
             },
-            hota_payload[hota_ack[nonce], frame]
+            hotair_payload[hotair_ack[nonce], frame]
         )
 
-    async def render(self, element: CustomElement, *, id='__hota'):
+    async def render(self, element: CustomElement, *, id='__hotair'):
         (json_data, node) = await self._render_for(id, element)
         await self.ws.send_json(json_data)
         await self.ws.send_text(node.serialised())

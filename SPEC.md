@@ -1,18 +1,18 @@
 # List of custom derivatives
 
 ```xml
-<hota-core></hota-core>
-<hota-payload>
-  <hota-ack>{{ acknowledgement key }}</hota-ack>
+<hotair-core></hotair-core>
+<hotair-payload>
+  <hotair-ack>{{ acknowledgement key }}</hotair-ack>
   <!-- used to verify the placement of the other elements -->
-  <hota-frame id="{{ uuid }}"></hota-frame>
-</hota-payload>
+  <hotair-frame id="{{ uuid }}"></hotair-frame>
+</hotair-payload>
 <!-- payload sent over WS -->
-<hota-redirect>{{ href }}</hota-redirect>
+<hotair-redirect>{{ href }}</hotair-redirect>
 <!-- equivalent to window.location.href = href; -->
-<hota-ephemeral-alert>{{ message }}</hota-ephemeral-alert>
+<hotair-ephemeral-alert>{{ message }}</hotair-ephemeral-alert>
 <!-- equivalent to alert(message); -->
-<hota-http verb="get | post | put | patch" href="..." headers="{}">{{ body }}</hota-http>
+<hotair-http verb="get | post | put | patch" href="..." headers="{}">{{ body }}</hotair-http>
 <!-- strict form of client side requests, which would be sent back to server -->
 ```
 
@@ -30,7 +30,7 @@
 
 1. Insert at `payload.for`
 2. Update frame `payload.for`
-3. Insert at designated `hota-core` element (inside head)
+3. Insert at designated `hotair-core` element (inside head)
 4. Handle Event
 
 # Event Handlers
